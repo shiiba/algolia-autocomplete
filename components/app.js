@@ -13,7 +13,9 @@ class AlgoliaAutocomplete extends React.Component {
 
   componentDidMount() {
 
-    // here's where the client goes
+    // here's where the Algolia Keys go
+    const client = algoliasearch('YourApplicationID', 'YourSearchOnlyAPIKey');
+    
     const index = client.initIndex('algolia_test');
 
     const algoliaOptions = {

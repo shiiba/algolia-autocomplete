@@ -4,6 +4,7 @@
 const express = require('express');
 const app = express();
 const logger = require('morgan');
+const webPackMiddleware = require('./tasks.js');
 
 // Middleware
 app.use(logger('dev'));
