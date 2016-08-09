@@ -13,6 +13,10 @@
     color: #999;
   }
 
+  .scale-down {
+    object-fit: scale-down;
+  }
+
   .aa-dropdown-menu {
     width: 100%;
     background-color: #fff;
@@ -26,6 +30,27 @@
       em {
         font-weight: bold;
         font-style: normal;
+      }
+
+      .product {
+        width: 100%;
+        
+        .product-image {
+          width: 17%;
+          display: inline-block;
+          
+
+          img {
+            max-height: 6rem;
+            max-width: 6rem;
+            margin: 0 auto;
+            display: block;
+          }
+        }
+        .product-details {
+          width: 81%;
+          display: inline-block;
+        }
       }
     }
 

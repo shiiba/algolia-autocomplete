@@ -85,11 +85,17 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	// then i need to style the fuck out of it
-	// abstract html markup to hogan js or handlebars external template
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // TO-DOs
+	// style the search bar
+	// add in empty states for search
+	// make mobile responsive
+	// abstract html markup to hogan js or handlebars external template?
 	// maybe then display the selected item on small react class at the bottom
-	// then i need to answer the questions she sent over
+	// remove popularity from results after testing
+	// remove server stuff
+	// test lots of different search edge cases to improve relevance
+	// deploy to github pages
+	// then i need to answer the questions jennifer sent over
 
 	// Requirements
 
@@ -97,7 +103,6 @@
 	// Algolia options
 	var client = (0, _algoliasearch2.default)('QOM7KCRP1J', '50f205da237d825aa0a6e7ab9cb3c571');
 	var names = client.initIndex('algolia_test');
-	var categories = client.initIndex('categories');
 	var autocompleteOptions = {
 	  hint: true,
 	  autoselect: true,
@@ -114,7 +119,8 @@
 	      // console.log(suggestion);
 	      var name = _suggestion._highlightResult.name.value;
 	      var newName = name.substring(name.indexOf("-") + 2);
-	      return '<div class="products">' + '  <img src="' + _suggestion.image + '"/>' + '  <div class="product-name">' + '    <div class="brand">' + _suggestion._highlightResult.brand.value + '</div>' + '    <div class="name">' + newName + '</div>' + '  </div>' + '  <span class="price"> $' + _suggestion.price + '</span>' + '  <span class="product-category"> in ' + _suggestion.categories[0] + '</span>' + '  <span class="popularity">' + _suggestion.popularity + '</span>' + '</div>';
+	      var category = _suggestion.categories[2] || _suggestion.categories[1];
+	      return '<div class="products">' + '  <img src="' + _suggestion.image + '"/>' + '  <div class="product-name">' + '    <div class="brand">' + _suggestion._highlightResult.brand.value + '</div>' + '    <div class="name">' + newName + '</div>' + '  </div>' + '  <span class="price"> $' + _suggestion.price + '</span>' + '  <span class="product-description"> found in ' + category + '</span>' + '  <span class="popularity"> Popularity: ' + _suggestion.popularity + '</span>' + '</div>';
 	    }
 	  }
 	}];
@@ -132,8 +138,8 @@
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      (0, _autocomplete2.default)('#search-input', autocompleteOptions, autocompleteSchema).on('autocomplete:selected', function (event, suggestion, dataset) {
-	        // event.preventDefault();
-	        // window.location.href = suggestion.url;
+	        event.preventDefault();
+	        window.location.href = suggestion.url;
 	      });
 	    }
 	  }, {
