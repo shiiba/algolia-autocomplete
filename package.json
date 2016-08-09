@@ -20,6 +20,7 @@
     "css-loader": "^0.23.1",
     "express": "^4.14.0",
     "fs": "0.0.2",
+    "hogan.js": "^3.0.2",
     "jquery": "^3.1.0",
     "memory-fs": "^0.3.0",
     "morgan": "^1.7.0",
