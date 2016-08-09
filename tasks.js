@@ -1,6 +1,6 @@
-var webpack = require ('webpack'); 
-var config = require ('./webpack.config.js');
-var webpackMiddleware = require('webpack-dev-middleware');
-var compiler = webpack(config);
+const webpack = require ('webpack'); 
+const config = require ('./webpack.config.js');
+const webpackMiddleware = require('webpack-dev-middleware');
+const compiler = webpack(config);
 
 module.exports = webpackMiddleware(compiler);
