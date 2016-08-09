@@ -85,9 +85,8 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // then, i need to make sure that the info is being returned and rendered in the template correctly
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	// then i need to style the fuck out of it
-
 	// abstract html markup to hogan js or handlebars external template
 	// maybe then display the selected item on small react class at the bottom
 	// then i need to answer the questions she sent over
@@ -99,31 +98,23 @@
 	var client = (0, _algoliasearch2.default)('QOM7KCRP1J', '50f205da237d825aa0a6e7ab9cb3c571');
 	var names = client.initIndex('algolia_test');
 	var categories = client.initIndex('categories');
-	var algoliaOptions = [{
+	var autocompleteOptions = {
+	  hint: true,
+	  autoselect: true,
+	  debug: true,
+	  templates: { dropdownMenu: '#test-container' }
+	};
+	var autocompleteSchema = [{
 	  source: _autocomplete2.default.sources.hits(names, { hitsPerPage: 7 }),
 	  name: '0',
 	  displayKey: 'name',
 	  templates: {
 	    header: '<h4>Product</h4>',
 	    suggestion: function suggestion(_suggestion) {
-	      console.log(_suggestion);
+	      // console.log(suggestion);
 	      var name = _suggestion._highlightResult.name.value;
 	      var newName = name.substring(name.indexOf("-") + 2);
-	      // console.log(newName);
-	      return '<div class="product">' + '  <img src="' + _suggestion.image + '"/>' + '  <div class="product-name">' + '    <div class="brand">' + _suggestion._highlightResult.brand.value + '</div>' + '    <div class="name">' + newName + '</div>' + '  </div>' + '  <span class="price"> $' + _suggestion.price + '</span>' + '  <span class="category"> in ' + _suggestion.categories[0] + '</span>' + '</div>';
-	    }
-	  }
-	}, {
-	  source: _autocomplete2.default.sources.hits(categories, { hitsPerPage: 3 }),
-	  name: '1',
-	  displayKey: 'categories',
-	  templates: {
-	    header: '<h4>Categories</h4>',
-	    // suggestion: this.grabSuggestions(suggestion)
-	    suggestion: function suggestion(_suggestion2) {
-	      // console.log(suggestion);
-	      // return suggestion._highlightResult.categories[0].value;  // need to iterate through top 3 categories
-	      // return templateCategory.render(suggestion);
+	      return '<div class="products">' + '  <img src="' + _suggestion.image + '"/>' + '  <div class="product-name">' + '    <div class="brand">' + _suggestion._highlightResult.brand.value + '</div>' + '    <div class="name">' + newName + '</div>' + '  </div>' + '  <span class="price"> $' + _suggestion.price + '</span>' + '  <span class="product-category"> in ' + _suggestion.categories[0] + '</span>' + '  <span class="popularity">' + _suggestion.popularity + '</span>' + '</div>';
 	    }
 	  }
 	}];
@@ -140,13 +131,9 @@
 	  _createClass(AlgoliaAutocomplete, [{
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      (0, _autocomplete2.default)('#search-input', {
-	        hint: true,
-	        autoselect: true,
-	        debug: true,
-	        templates: { dropdownMenu: '#test-container' }
-	      }, algoliaOptions).on('autocomplete:selected', function (event, suggestion, dataset) {
-	        console.log(suggestion);
+	      (0, _autocomplete2.default)('#search-input', autocompleteOptions, autocompleteSchema).on('autocomplete:selected', function (event, suggestion, dataset) {
+	        // event.preventDefault();
+	        // window.location.href = suggestion.url;
 	      });
 	    }
 	  }, {

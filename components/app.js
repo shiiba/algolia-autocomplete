@@ -1,8 +1,14 @@
-
-// then i need to style the fuck out of it
-// abstract html markup to hogan js or handlebars external template
+// TO-DOs
+// style the search bar
+// add in empty states for search
+// make mobile responsive
+// abstract html markup to hogan js or handlebars external template?
 // maybe then display the selected item on small react class at the bottom
-// then i need to answer the questions she sent over
+// remove popularity from results after testing
+// remove server stuff
+// test lots of different search edge cases to improve relevance
+// deploy to github pages
+// then i need to answer the questions jennifer sent over
 
 // Requirements
 import React from 'react';
@@ -15,13 +21,12 @@ import styles from '../sass/styles.scss';
 // Algolia options
 const client = algoliasearch('QOM7KCRP1J', '50f205da237d825aa0a6e7ab9cb3c571');
 const names = client.initIndex('algolia_test');
-const categories = client.initIndex('categories');
 const autocompleteOptions = { 
         hint: true, 
         autoselect: true, 
         debug: true, 
         templates: { dropdownMenu: '#test-container'} 
-      } 
+      }
 const autocompleteSchema = [
   {
     source: autocomplete.sources.hits(names, { hitsPerPage: 7 }),
@@ -33,6 +38,7 @@ const autocompleteSchema = [
         // console.log(suggestion);
         let name = suggestion._highlightResult.name.value;
         let newName = name.substring(name.indexOf("-") + 2);
+        let category = suggestion.categories[2] || suggestion.categories[1];
         return (
           '<div class="products">' + 
           '  <img src="' + suggestion.image + '"/>' + 
@@ -41,8 +47,8 @@ const autocompleteSchema = [
           '    <div class="name">' + newName + '</div>' + 
           '  </div>' + 
           '  <span class="price"> $' + suggestion.price + '</span>' + 
-          '  <span class="product-category"> in ' + suggestion.categories[0] + '</span>' +
-          '  <span class="popularity">' + suggestion.popularity + '</span>' +
+          '  <span class="product-description"> found in ' + category + '</span>' +
+          '  <span class="popularity"> Popularity: ' + suggestion.popularity + '</span>' +
           '</div>'
         );
       }
@@ -56,8 +62,8 @@ class AlgoliaAutocomplete extends React.Component {
     autocomplete(
       '#search-input', autocompleteOptions, autocompleteSchema)
     .on('autocomplete:selected', (event, suggestion, dataset) => { 
-      // event.preventDefault();
-      // window.location.href = suggestion.url;
+      event.preventDefault();
+      window.location.href = suggestion.url;
     });
   }
 
