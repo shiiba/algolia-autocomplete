@@ -1,6 +1,8 @@
 // TO-DOs
-// style the search bar
-// add in empty states for search
+
+// add in search icon using fontello
+// add search all of best buy for answers
+// add search IN category
 // make mobile responsive
 // abstract html markup to hogan js or handlebars external template?
 // test lots of different search edge cases to improve relevance (e.g. laptop, iphone, etc) // synonyms (e.g. coffee maker / coffee machine)
@@ -26,17 +28,19 @@ const autocompleteOptions = {
         hint: false, 
         autoselect: true, 
         debug: true, 
-        templates: { dropdownMenu: '#test-container'} 
-      }
+        templates: { 
+          dropdownMenu: '#test-container',
+          empty: '<div class="empty">No results found.</div>'
+        }
+      };
 const autocompleteSchema = [
   {
-    source: autocomplete.sources.hits(names, { hitsPerPage: 7 }),
+    source: autocomplete.sources.hits(names, { hitsPerPage: 6 }),
     name: '0',
     displayKey: 'name',
     templates: {
-      header: '<h4>Product</h4>',
+      // header: '<h4>Product</h4>',
       suggestion: (suggestion) => {
-        // console.log(suggestion);
         let name = suggestion._highlightResult.name.value;
         // strips brand from name if it exists
         let newName = checkForBrand(suggestion.name, suggestion.brand) ? name.substring(name.indexOf("-") + 2) : name;
@@ -46,15 +50,12 @@ const autocompleteSchema = [
         return (
           '<div class="product">' + 
           '  <div class="product-image">' +
-          '    <img class="scale-down" src="' + suggestion.image + '"/>' + 
+          '    <img src="' + suggestion.image + '" alt="' + suggestion.name + '"/>' + 
           '  </div>' +
           '  <div class="product-details">' + 
-          '    <span class="brand">' + suggestion._highlightResult.brand.value + '</span>' + 
-          '    <br/>' +
-          '    <span class="name">' + newName + '</span>' + 
-          '    <br/>' +
+          '    <span class="brand">' + suggestion._highlightResult.brand.value + '</span>' +
+          '    <span class="name">' + newName + '</span>' +
           '    <span class="category">in ' + category + '</span>' +
-          '    <br/>' +
           '    <span class="price"> $' + suggestion.price + '     </span>' + 
           '    <span class="popularity"> Popularity: ' + suggestion.popularity + '</span>' +
           '  </div>' + 
@@ -84,6 +85,8 @@ class AlgoliaAutocomplete extends React.Component {
   render() {
     return(
       <div>
+        <header>Algolia Autocomplete</header>
+        <div className="main-message">Search for a product by name and/or brand</div>
         <input 
           id="search-input"
           type="text"

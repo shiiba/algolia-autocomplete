@@ -90,10 +90,11 @@
 	// add in empty states for search
 	// make mobile responsive
 	// abstract html markup to hogan js or handlebars external template?
-	// maybe then display the selected item on small react class at the bottom
+	// test lots of different search edge cases to improve relevance (e.g. laptop, iphone, etc) // synonyms (e.g. coffee maker / coffee machine)
+	// g-technology brand name stripping
 	// remove popularity from results after testing
 	// remove server stuff
-	// test lots of different search edge cases to improve relevance
+	// remove debug mode
 	// deploy to github pages
 	// then i need to answer the questions jennifer sent over
 
@@ -104,7 +105,7 @@
 	var client = (0, _algoliasearch2.default)('QOM7KCRP1J', '50f205da237d825aa0a6e7ab9cb3c571');
 	var names = client.initIndex('algolia_test');
 	var autocompleteOptions = {
-	  hint: true,
+	  hint: false,
 	  autoselect: true,
 	  debug: true,
 	  templates: { dropdownMenu: '#test-container' }
@@ -118,12 +119,20 @@
 	    suggestion: function suggestion(_suggestion) {
 	      // console.log(suggestion);
 	      var name = _suggestion._highlightResult.name.value;
-	      var newName = name.substring(name.indexOf("-") + 2);
-	      var category = _suggestion.categories[2] || _suggestion.categories[1];
-	      return '<div class="products">' + '  <img src="' + _suggestion.image + '"/>' + '  <div class="product-name">' + '    <div class="brand">' + _suggestion._highlightResult.brand.value + '</div>' + '    <div class="name">' + newName + '</div>' + '  </div>' + '  <span class="price"> $' + _suggestion.price + '</span>' + '  <span class="product-description"> found in ' + category + '</span>' + '  <span class="popularity"> Popularity: ' + _suggestion.popularity + '</span>' + '</div>';
+	      // strips brand from name if it exists
+	      var newName = checkForBrand(_suggestion.name, _suggestion.brand) ? name.substring(name.indexOf("-") + 2) : name;
+	      // sets category in order of most specific
+	      var category = _suggestion.categories[2] || _suggestion.categories[1] || _suggestion.categories[0];
+
+	      return '<div class="product">' + '  <div class="product-image">' + '    <img class="scale-down" src="' + _suggestion.image + '"/>' + '  </div>' + '  <div class="product-details">' + '    <span class="brand">' + _suggestion._highlightResult.brand.value + '</span>' + '    <br/>' + '    <span class="name">' + newName + '</span>' + '    <br/>' + '    <span class="category">in ' + category + '</span>' + '    <br/>' + '    <span class="price"> $' + _suggestion.price + '     </span>' + '    <span class="popularity"> Popularity: ' + _suggestion.popularity + '</span>' + '  </div>' + '</div>';
 	    }
 	  }
 	}];
+
+	// checks brand name if it exists in the name
+	function checkForBrand(name, brand) {
+	  return name.indexOf(brand) != -1 ? true : false;
+	}
 
 	var AlgoliaAutocomplete = function (_React$Component) {
 	  _inherits(AlgoliaAutocomplete, _React$Component);
@@ -40310,7 +40319,7 @@
 
 
 	// module
-	exports.push([module.id, ".algolia-autocomplete {\n  width: 100%; }\n  .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {\n    width: 100%; }\n  .algolia-autocomplete .aa-hint {\n    color: #999; }\n  .algolia-autocomplete .aa-dropdown-menu {\n    width: 100%;\n    background-color: #fff;\n    border: 1px solid #999;\n    border-top: none; }\n    .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {\n      cursor: pointer;\n      padding: 5px 4px; }\n      .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {\n        font-weight: bold;\n        font-style: normal; }\n    .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {\n      background-color: #B2D7FF; }\n", ""]);
+	exports.push([module.id, ".algolia-autocomplete {\n  width: 40%; }\n  .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {\n    width: 100%; }\n  .algolia-autocomplete .aa-hint {\n    color: #999; }\n  .algolia-autocomplete .scale-down {\n    object-fit: scale-down; }\n  .algolia-autocomplete .aa-dropdown-menu {\n    width: 100%;\n    background-color: #fff;\n    border: 1px solid #999;\n    border-top: none; }\n    .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {\n      cursor: pointer;\n      padding: 5px 4px; }\n      .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {\n        font-weight: bold;\n        font-style: normal; }\n      .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product {\n        width: 100%; }\n        .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-image {\n          width: 17%;\n          display: inline-block; }\n          .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-image img {\n            max-height: 6rem;\n            max-width: 6rem;\n            margin: 0 auto;\n            display: block; }\n        .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-details {\n          width: 81%;\n          display: inline-block; }\n    .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {\n      background-color: #B2D7FF; }\n", ""]);
 
 	// exports
 
