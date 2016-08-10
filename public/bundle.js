@@ -89,16 +89,7 @@
 
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // TO-DOs
-	// make mobile responsive
-
-	// test lots of different search edge cases to improve relevance (e.g. laptop, iphone, etc) // synonyms (e.g. coffee maker / coffee machine)
-	// remove popularity from results after testing
-	// remove server stuff
-	// deploy to github pages
-	// then i need to answer the questions jennifer sent over
-
-	// Requirements
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // Requirements
 
 
 	// Algolia options
@@ -122,8 +113,6 @@
 	      return '<div class="nb-hits">' + answer.nbHits + ' results found</h4>';
 	    },
 	    suggestion: function suggestion(_suggestion, answer) {
-	      console.log(_suggestion);
-
 	      var name = _suggestion._highlightResult.name.value;
 	      // strips brand from name if it exists
 	      var newName = checkForBrand(_suggestion.name, _suggestion.brand) ? stripBrandFromName(name, _suggestion.brand) : name;
@@ -179,24 +168,26 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'header',
-	          null,
-	          'Algolia Autocomplete'
-	        ),
+	        { className: 'main-container' },
 	        _react2.default.createElement(
 	          'div',
-	          {
-	            className: 'main-message'
-	          },
-	          'Search for a product by name and/or brand'
-	        ),
-	        _react2.default.createElement('input', {
-	          id: 'search-input',
-	          type: 'text',
-	          placeholder: 'Search for a product...'
-	        })
+	          { className: 'inside-container' },
+	          _react2.default.createElement(
+	            'header',
+	            null,
+	            'Algolia Autocomplete'
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: 'main-message' },
+	            'Search for a product by name and / or brand'
+	          ),
+	          _react2.default.createElement('input', {
+	            id: 'search-input',
+	            type: 'text',
+	            placeholder: 'Search for a product...'
+	          })
+	        )
 	      );
 	    }
 	  }]);
@@ -40355,7 +40346,7 @@
 
 
 	// module
-	exports.push([module.id, ".algolia-autocomplete {\n  width: 60%;\n  max-width: 580px; }\n  .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {\n    width: 80%; }\n  .algolia-autocomplete .aa-input {\n    height: 1.5rem;\n    margin-bottom: 0.5rem;\n    font-family: \"Source Sans Pro\", sans-serif;\n    font-size: 1rem; }\n    .algolia-autocomplete .aa-input:focus {\n      outline: none !important; }\n  .algolia-autocomplete .aa-hint {\n    color: #999; }\n  .algolia-autocomplete .aa-dropdown-menu {\n    width: 100%;\n    background-color: #fff;\n    border: 1px solid #999;\n    margin-top: 0.5rem;\n    font-family: \"Source Sans Pro\", sans-serif;\n    font-size: 1rem; }\n    .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {\n      cursor: pointer;\n      padding: 5px 4px; }\n      .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {\n        font-weight: bold;\n        font-style: normal; }\n      .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product {\n        width: 100%; }\n        .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-image {\n          width: 15%;\n          display: inline-block;\n          vertical-align: top;\n          margin-top: 0.5rem; }\n          .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-image img {\n            max-height: 4.5rem;\n            max-width: 4.5rem;\n            margin: 0 auto;\n            display: block; }\n        .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-details {\n          max-height: 4.5rem;\n          width: 83%;\n          display: inline-block; }\n          .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-details span {\n            display: block;\n            margin-bottom: 0.2rem; }\n          .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-details .name {\n            font-size: 0.95rem; }\n          .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-details .category {\n            font-size: 0.75rem;\n            color: #6F6F6F; }\n          .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-details .price {\n            color: #3cc4f9;\n            font-size: 0.9rem; }\n          .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-details .popularity {\n            position: absolute;\n            right: 2rem;\n            font-size: 0.8rem;\n            color: lightgray;\n            display: none; }\n    .algolia-autocomplete .aa-dropdown-menu .empty {\n      min-height: 2.5rem;\n      padding: 0.5rem; }\n    .algolia-autocomplete .aa-dropdown-menu .autocomplete-menu:before {\n      position: absolute;\n      top: -10px;\n      left: 9%;\n      content: '';\n      width: 0;\n      height: 0;\n      border-left: 10px solid transparent;\n      border-right: 10px solid transparent;\n      border-bottom: 10px solid white;\n      z-index: 2; }\n    .algolia-autocomplete .aa-dropdown-menu .autocomplete-menu:after {\n      position: absolute;\n      top: -11.5px;\n      left: 9%;\n      content: '';\n      width: 0;\n      height: 0;\n      border-left: 10.5px solid transparent;\n      border-right: 10.5px solid transparent;\n      border-bottom: 10.5px solid #999;\n      z-index: 1; }\n    .algolia-autocomplete .aa-dropdown-menu .nb-hits {\n      display: inline;\n      position: absolute;\n      top: 5px;\n      right: 5px;\n      color: #6F6F6F;\n      font-size: 0.8rem; }\n    .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {\n      background-color: #eef6ff; }\n", ""]);
+	exports.push([module.id, "html {\n  font-size: 1rem; }\n  @media only screen and (max-device-width: 480px) {\n    html {\n      font-size: 1.3rem; } }\n\nbody {\n  font-family: \"Source Sans Pro\", sans-serif; }\n\n.main-container {\n  width: 100%; }\n  .main-container .inside-container {\n    padding-left: 30%; }\n    @media (max-width: 480px) {\n      .main-container .inside-container {\n        padding-left: 0%; } }\n\nheader {\n  font-size: 1.5rem;\n  margin-bottom: 1rem; }\n\n.main-message {\n  font-size: 1rem;\n  margin-bottom: 1rem; }\n\n@media (max-width: 480px) {\n  #search-input {\n    border: 1px solid #999;\n    width: 98%; } }\n\n.algolia-autocomplete {\n  width: 60%;\n  max-width: 580px; }\n  @media (max-width: 480px) {\n    .algolia-autocomplete {\n      width: 97%;\n      max-width: 97%; } }\n  .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {\n    width: 80%;\n    max-width: 580px; }\n    @media (max-width: 768px) {\n      .algolia-autocomplete .aa-input, .algolia-autocomplete .aa-hint {\n        width: 90%;\n        max-width: 80%; } }\n  .algolia-autocomplete .aa-input {\n    height: 1.5rem;\n    margin-bottom: 0.5rem;\n    font-family: \"Source Sans Pro\", sans-serif;\n    font-size: 1rem; }\n    .algolia-autocomplete .aa-input:focus {\n      outline: none !important; }\n  .algolia-autocomplete .aa-hint {\n    color: #999; }\n  .algolia-autocomplete .aa-dropdown-menu {\n    width: 100%;\n    background-color: #fff;\n    border: 1px solid #999;\n    margin-top: 0.5rem;\n    font-family: \"Source Sans Pro\", sans-serif;\n    font-size: 1rem; }\n    .algolia-autocomplete .aa-dropdown-menu .aa-suggestion {\n      cursor: pointer;\n      padding: 5px 4px; }\n      .algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {\n        font-weight: 700;\n        font-style: normal; }\n      .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product {\n        width: 100%; }\n        .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-image {\n          width: 15%;\n          display: inline-block;\n          vertical-align: top;\n          margin-top: 0.5rem; }\n          .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-image img {\n            max-height: 4.5rem;\n            max-width: 4.5rem;\n            margin: 0 auto;\n            display: block; }\n          @media (max-width: 768px) {\n            .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-image {\n              display: none; } }\n        .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-details {\n          max-height: 4.5rem;\n          width: 83%;\n          display: inline-block; }\n          .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-details span {\n            display: block;\n            margin-bottom: 0.2rem; }\n          .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-details .brand {\n            font-size: 1rem; }\n          .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-details .name {\n            font-size: 0.95rem; }\n          .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-details .category {\n            font-size: 0.75rem;\n            color: #6F6F6F; }\n          .algolia-autocomplete .aa-dropdown-menu .aa-suggestion .product .product-details .price {\n            color: #3cc4f9;\n            font-size: 0.9rem; }\n    .algolia-autocomplete .aa-dropdown-menu .empty {\n      min-height: 2.5rem;\n      padding: 0.5rem; }\n    .algolia-autocomplete .aa-dropdown-menu .autocomplete-menu:before {\n      position: absolute;\n      top: -10px;\n      left: 9%;\n      content: '';\n      width: 0;\n      height: 0;\n      border-left: 10px solid transparent;\n      border-right: 10px solid transparent;\n      border-bottom: 10px solid white;\n      z-index: 2; }\n    .algolia-autocomplete .aa-dropdown-menu .autocomplete-menu:after {\n      position: absolute;\n      top: -11.5px;\n      left: 9%;\n      content: '';\n      width: 0;\n      height: 0;\n      border-left: 10.5px solid transparent;\n      border-right: 10.5px solid transparent;\n      border-bottom: 10.5px solid #999;\n      z-index: 1; }\n    .algolia-autocomplete .aa-dropdown-menu .nb-hits {\n      display: inline;\n      position: absolute;\n      top: 5px;\n      right: 5px;\n      color: #6F6F6F;\n      font-size: 0.8rem; }\n    .algolia-autocomplete .aa-dropdown-menu .aa-suggestion.aa-cursor {\n      background-color: #eef6ff; }\n", ""]);
 
 	// exports
 
@@ -40688,7 +40679,7 @@
 	            alias3 = helpers.helperMissing,
 	            alias4 = "function";
 
-	        return "<div class=\"product\">  \n  <div class=\"product-image\" id=\" " + ((stack1 = alias1((stack1 = depth0 != null ? depth0.suggestion : depth0) != null ? stack1.objectID : stack1, depth0)) != null ? stack1 : "") + " \"> \n    <img src=\" " + ((stack1 = alias1((stack1 = depth0 != null ? depth0.suggestion : depth0) != null ? stack1.image : stack1, depth0)) != null ? stack1 : "") + " \" alt=\" " + ((stack1 = alias1((stack1 = depth0 != null ? depth0.suggestion : depth0) != null ? stack1.name : stack1, depth0)) != null ? stack1 : "") + " \"/>\n  </div> \n  <div class=\"product-details\">  \n    <span class=\"brand\"> " + ((stack1 = alias1((stack1 = (stack1 = (stack1 = depth0 != null ? depth0.suggestion : depth0) != null ? stack1._highlightResult : stack1) != null ? stack1.brand : stack1) != null ? stack1.value : stack1, depth0)) != null ? stack1 : "") + " </span> \n    <span class=\"name\"> " + ((stack1 = (helper = (helper = helpers.newName || (depth0 != null ? depth0.newName : depth0)) != null ? helper : alias3, (typeof helper === "undefined" ? "undefined" : _typeof(helper)) === alias4 ? helper.call(alias2, { "name": "newName", "hash": {}, "data": data }) : helper)) != null ? stack1 : "") + " </span> \n    <span class=\"category\">in " + ((stack1 = (helper = (helper = helpers.category || (depth0 != null ? depth0.category : depth0)) != null ? helper : alias3, (typeof helper === "undefined" ? "undefined" : _typeof(helper)) === alias4 ? helper.call(alias2, { "name": "category", "hash": {}, "data": data }) : helper)) != null ? stack1 : "") + " </span> \n    <span class=\"price\"> $ " + ((stack1 = alias1((stack1 = depth0 != null ? depth0.suggestion : depth0) != null ? stack1.price : stack1, depth0)) != null ? stack1 : "") + " </span>\n    <span class=\"popularity\"> Popularity: " + ((stack1 = alias1((stack1 = depth0 != null ? depth0.suggestion : depth0) != null ? stack1.popularity : stack1, depth0)) != null ? stack1 : "") + " </span> \n   </div>  \n</div>\n";
+	        return "<div class=\"product\">  \n  <div class=\"product-image\" id=\" " + ((stack1 = alias1((stack1 = depth0 != null ? depth0.suggestion : depth0) != null ? stack1.objectID : stack1, depth0)) != null ? stack1 : "") + " \"> \n    <img src=\" " + ((stack1 = alias1((stack1 = depth0 != null ? depth0.suggestion : depth0) != null ? stack1.image : stack1, depth0)) != null ? stack1 : "") + " \" alt=\" " + ((stack1 = alias1((stack1 = depth0 != null ? depth0.suggestion : depth0) != null ? stack1.name : stack1, depth0)) != null ? stack1 : "") + " \"/>\n  </div> \n  <div class=\"product-details\">  \n    <span class=\"brand\"> " + ((stack1 = alias1((stack1 = (stack1 = (stack1 = depth0 != null ? depth0.suggestion : depth0) != null ? stack1._highlightResult : stack1) != null ? stack1.brand : stack1) != null ? stack1.value : stack1, depth0)) != null ? stack1 : "") + " </span> \n    <span class=\"name\"> " + ((stack1 = (helper = (helper = helpers.newName || (depth0 != null ? depth0.newName : depth0)) != null ? helper : alias3, (typeof helper === "undefined" ? "undefined" : _typeof(helper)) === alias4 ? helper.call(alias2, { "name": "newName", "hash": {}, "data": data }) : helper)) != null ? stack1 : "") + " </span> \n    <span class=\"category\">in " + ((stack1 = (helper = (helper = helpers.category || (depth0 != null ? depth0.category : depth0)) != null ? helper : alias3, (typeof helper === "undefined" ? "undefined" : _typeof(helper)) === alias4 ? helper.call(alias2, { "name": "category", "hash": {}, "data": data }) : helper)) != null ? stack1 : "") + " </span> \n    <span class=\"price\"> $ " + ((stack1 = alias1((stack1 = depth0 != null ? depth0.suggestion : depth0) != null ? stack1.price : stack1, depth0)) != null ? stack1 : "") + " </span>\n   </div>  \n</div>\n";
 	    }, "useData": true });
 
 /***/ },

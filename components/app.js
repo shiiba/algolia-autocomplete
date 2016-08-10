@@ -1,10 +1,3 @@
-// TO-DOs
-// make mobile responsive
-
-// test lots of different search edge cases to improve relevance (e.g. laptop, iphone, etc) // synonyms (e.g. coffee maker / coffee machine)
-// remove server stuff
-// deploy to github pages
-
 // Requirements
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -85,18 +78,18 @@ import productTemplate from '../public/product.handlebars';
 
     render() {
       return(
-        <div>
-          <header>Algolia Autocomplete</header>
-          <div 
-            className="main-message"
-          >
-            Search for a product by name and/or brand
+        <div className="main-container">
+          <div className="inside-container">
+            <header>Algolia Autocomplete</header>
+            <div className="main-message">
+              Search for a product by name and / or brand
+            </div>
+            <input 
+              id="search-input"
+              type="text"
+              placeholder="Search for a product..."
+            />
           </div>
-          <input 
-            id="search-input"
-            type="text"
-            placeholder="Search for a product..."
-          />
         </div>
       );
     }

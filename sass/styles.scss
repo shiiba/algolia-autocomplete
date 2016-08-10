@@ -1,18 +1,68 @@
 $default-font-family: 'Source Sans Pro', sans-serif;
-$heading-font-family: 'Roboto', sans-serif;
 $lightgray: #6F6F6F;
 $gray: #999;
 $white: #fff;
 $lightblue: #3cc4f9;
 $highlight: #eef6ff;
-$dropdown-maxwidth: 580px;
+$input-maxwidth: 580px;
+$mobile-breakpoint: 480px;
+$tablet-breakpoint: 768px;
+
+html {
+  font-size: 1rem;
+  @media only screen and (max-device-width: $mobile-breakpoint) {
+    font-size: 1.3rem;
+  }
+}
+
+body {
+  font-family: $default-font-family;
+}
+
+.main-container{
+  width: 100%;
+  .inside-container{
+    padding-left: 30%;
+    @media(max-width: $mobile-breakpoint) {
+      padding-left: 0%;
+    }
+  }
+}
+
+header{
+  font-size: 1.5rem;
+  margin-bottom: 1rem; 
+}
+
+.main-message {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+#search-input {
+  @media(max-width: $mobile-breakpoint) {
+    border: 1px solid $gray;
+    width: 98%;
+  }
+}
 
 .algolia-autocomplete {
   width: 60%;
-  max-width: $dropdown-maxwidth;
+  max-width: $input-maxwidth;
+  @media(max-width: $mobile-breakpoint) {
+    width: 97%;
+    max-width: 97%;
+  }
 
   .aa-input, .aa-hint {
     width: 80%;
+    max-width: $input-maxwidth;
+    
+    @media(max-width: $tablet-breakpoint) {
+      width: 90%;
+      max-width: 80%;
+    }
   }
   
   .aa-input {
@@ -44,7 +94,7 @@ $dropdown-maxwidth: 580px;
       padding: 5px 4px;
 
       em {
-        font-weight: bold;
+        font-weight: 700;
         font-style: normal;
       }
 
@@ -63,6 +113,10 @@ $dropdown-maxwidth: 580px;
             margin: 0 auto;
             display: block;
           }
+
+          @media(max-width: $tablet-breakpoint) {
+            display:none;
+          }
         }
 
         .product-details {
@@ -76,7 +130,7 @@ $dropdown-maxwidth: 580px;
           }
 
           .brand {
-          
+            font-size: 1rem;
           }
 
           .name {
