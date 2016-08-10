@@ -26,7 +26,7 @@ $dropdown-maxwidth: 580px;
     }
 
   }
-  
+
   .aa-hint {
     color: $gray;
   }
@@ -91,14 +91,6 @@ $dropdown-maxwidth: 580px;
           .price {
             color: $lightblue;
             font-size: 0.9rem;
-          }
-
-          .popularity {
-            position: absolute;
-            right: 2rem;
-            font-size: 0.8rem;
-            color: lightgray;
-            display: none;
           }
         }
       }

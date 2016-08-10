@@ -1,14 +1,9 @@
 // TO-DOs
-// add in search icon using fontello
-// add search IN category
 // make mobile responsive
 
 // test lots of different search edge cases to improve relevance (e.g. laptop, iphone, etc) // synonyms (e.g. coffee maker / coffee machine)
-// remove popularity from results after testing
 // remove server stuff
-// remove debug mode
 // deploy to github pages
-// then i need to answer the questions jennifer sent over
 
 // Requirements
 import React from 'react';
@@ -25,7 +20,7 @@ import productTemplate from '../public/product.handlebars';
   const autocompleteOptions = { 
           hint: false, 
           autoselect: true, 
-          debug: true, 
+          debug: false, 
           templates: { 
             dropdownMenu: '#test-container',
             empty: '<div class="empty">No results found.</div>'
@@ -41,8 +36,6 @@ import productTemplate from '../public/product.handlebars';
           return('<div class="nb-hits">' + answer.nbHits + ' results found</h4>');
         },
         suggestion: (suggestion, answer) => {
-          console.log(suggestion);
-
           let name = suggestion._highlightResult.name.value;
           // strips brand from name if it exists
           let newName = checkForBrand(suggestion.name, suggestion.brand) ? stripBrandFromName(name, suggestion.brand) : name;
@@ -94,10 +87,15 @@ import productTemplate from '../public/product.handlebars';
       return(
         <div>
           <header>Algolia Autocomplete</header>
-          <div className="main-message">Search for a product by name and/or brand</div>
+          <div 
+            className="main-message"
+          >
+            Search for a product by name and/or brand
+          </div>
           <input 
             id="search-input"
             type="text"
+            placeholder="Search for a product..."
           />
         </div>
       );
