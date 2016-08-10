@@ -1,16 +1,18 @@
 $default-font-family: 'Source Sans Pro', sans-serif;
 $heading-font-family: 'Roboto', sans-serif;
-$light-gray: #6F6F6F;
+$lightgray: #6F6F6F;
 $gray: #999;
 $white: #fff;
 $lightblue: #3cc4f9;
 $highlight: #eef6ff;
+$dropdown-maxwidth: 580px;
 
 .algolia-autocomplete {
   width: 60%;
+  max-width: $dropdown-maxwidth;
 
   .aa-input, .aa-hint {
-    width: 50%;
+    width: 80%;
   }
   
   .aa-input {
@@ -52,7 +54,8 @@ $highlight: #eef6ff;
         .product-image {
           width: 15%;
           display: inline-block;
-          
+          vertical-align: top;
+          margin-top: 0.5rem;
 
           img {
             max-height: 4.5rem;
@@ -82,7 +85,7 @@ $highlight: #eef6ff;
 
           .category {
             font-size: 0.75rem;
-            color: $light-gray;
+            color: $lightgray;
           }
 
           .price {
@@ -95,6 +98,7 @@ $highlight: #eef6ff;
             right: 2rem;
             font-size: 0.8rem;
             color: lightgray;
+            display: none;
           }
         }
       }
@@ -131,7 +135,15 @@ $highlight: #eef6ff;
         border-bottom: 10.5px solid $gray;
         z-index:1;
       }
+    }
 
+    .nb-hits {
+      display: inline;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      color: $lightgray;
+      font-size: 0.8rem;
     }
 
     .aa-suggestion.aa-cursor {

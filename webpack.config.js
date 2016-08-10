@@ -15,6 +15,10 @@ module.exports = {
       exclude: /node_modules/,
       loader: 'babel'
     },
+    { 
+      test: /\.handlebars$/, 
+      loader: "handlebars-loader" 
+    },
     {
       test: /\.scss$/,
       loaders: ["style", "css", "sass"]
