@@ -1,10 +1,11 @@
 // TO-DOs
-
+// answer.nbhits
 // add in search icon using fontello
 // add search all of best buy for answers
 // add search IN category
 // make mobile responsive
 // abstract html markup to hogan js or handlebars external template?
+
 // test lots of different search edge cases to improve relevance (e.g. laptop, iphone, etc) // synonyms (e.g. coffee maker / coffee machine)
 // g-technology brand name stripping
 // remove popularity from results after testing
@@ -40,12 +41,15 @@ const autocompleteSchema = [
     displayKey: 'name',
     templates: {
       // header: '<h4>Product</h4>',
-      suggestion: (suggestion) => {
+      suggestion: (suggestion, answer) => {
+        
+        console.log(answer);
+
         let name = suggestion._highlightResult.name.value;
         // strips brand from name if it exists
         let newName = checkForBrand(suggestion.name, suggestion.brand) ? name.substring(name.indexOf("-") + 2) : name;
         // sets category in order of most specific
-        let category = suggestion.categories[2] || suggestion.categories[1] || suggestion.categories[0];
+        let category = suggestion.categories[1] || suggestion.categories[0];
         
         return (
           '<div class="product">' + 
@@ -57,8 +61,8 @@ const autocompleteSchema = [
           '    <span class="name">' + newName + '</span>' +
           '    <span class="category">in ' + category + '</span>' +
           '    <span class="price"> $' + suggestion.price + '     </span>' + 
-          '    <span class="popularity"> Popularity: ' + suggestion.popularity + '</span>' +
-          '  </div>' + 
+          // '    <span class="popularity"> Popularity: ' + suggestion.popularity + '</span>' +
+          // '  </div>' + 
           '</div>'
         );
       }
