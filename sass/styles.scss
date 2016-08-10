@@ -7,14 +7,17 @@ $lightblue: #3cc4f9;
 $highlight: #eef6ff;
 
 .algolia-autocomplete {
-  width: 70%;
+  width: 60%;
 
   .aa-input, .aa-hint {
-    width: 40%;
+    width: 50%;
   }
   
   .aa-input {
-  
+    height: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-family: $default-font-family;
+    font-size: 1rem;
   }
   
   .aa-hint{
@@ -42,7 +45,7 @@ $highlight: #eef6ff;
         width: 100%;
         
         .product-image {
-          width: 13%;
+          width: 15%;
           display: inline-block;
           
 
@@ -56,7 +59,7 @@ $highlight: #eef6ff;
 
         .product-details {
           max-height: 4.5rem;
-          width: 85%;
+          width: 83%;
           display: inline-block;
 
           span {
@@ -96,17 +99,32 @@ $highlight: #eef6ff;
       min-height: 2.5rem;
       padding: 0.5rem;
     }
-    
-    // .aa-dropdown-menu::after {
-    //   position: absolute;
-    //   left: 50%;
-    //   top: -8px;
-    //   width: 0;
-    //   height: 0;
-    //   border-left: 20px solid transparent;
-    //   border-right: 20px solid transparent;
-    //   border-bottom: 20px solid black;
-    // }
+
+    .autocomplete-menu:before {
+      position:absolute;
+      top:-10px; 
+      left: 9%;
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 10px solid transparent;
+      border-right: 10px solid transparent;
+      border-bottom: 10px solid white;
+      z-index:2;
+    }
+
+    .autocomplete-menu:after {
+      position:absolute;
+      top: -11.5px; 
+      left: 9%;
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 10.5px solid transparent;
+      border-right: 10.5px solid transparent;
+      border-bottom: 10.5px solid $gray;
+      z-index:1;
+    }
 
     .aa-suggestion.aa-cursor {
       background-color: $highlight;
